@@ -25,15 +25,17 @@ const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setisLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const formSchema = authFormSchema(type);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof authFormSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     setisLoading(true);
     console.log(values);
     setisLoading(false);
@@ -69,6 +71,64 @@ const AuthForm = ({ type }: { type: string }) => {
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {type === "sign-up" && (
+                <>
+                  <div className="flex gap-4">
+                    <CustomInput
+                      control={form.control}
+                      name="firstName"
+                      label="First Name"
+                      placeholder="Enter your first name"
+                    />
+                    <CustomInput
+                      control={form.control}
+                      name="lastName"
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                  {/* address */}
+                  <CustomInput
+                    control={form.control}
+                    name="address"
+                    label="Address"
+                    placeholder="Enter your address"
+                  />
+                  <div className="flex gap-4">
+                    {/* province */}
+                    <CustomInput
+                      control={form.control}
+                      name="province"
+                      label="Province"
+                      placeholder="Enter your province"
+                    />
+                    {/* postal code */}
+                    <CustomInput
+                      control={form.control}
+                      name="postalCode"
+                      label="Postal Code"
+                      placeholder="Enter your postal code"
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    {/* dob */}
+                    <CustomInput
+                      control={form.control}
+                      name="dob"
+                      label="Date of Birth"
+                      placeholder="YYYY-MM-DD"
+                    />
+                    {/* sin */}
+                    <CustomInput
+                      control={form.control}
+                      name="sin"
+                      label="Social Insurance Number"
+                      placeholder="Enter your SIN"
+                    />
+                  </div>
+                </>
+              )}
+
               <CustomInput
                 control={form.control}
                 name="email"
