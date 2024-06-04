@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react'
 
 const MyBanks = () => {
-  return <div>MyBanks</div>;
-};
+  return (
+    <div>page</div>
+  )
+}
 
-export default MyBanks;
+export default MyBanks
