@@ -72,6 +72,9 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       `${firstName} ${lastName}`
     );
 
+    console.log("newUserAccount", newUserAccount);
+    console.log("userData", userData);
+
     if (!newUserAccount) throw new Error("Error creating user");
 
     const dwollaCustomerUrl = await createDwollaCustomer({
